@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div>
+        <div
+          id="container"
+          class="container"
+          @mouseup="selectEnd"
+          @mouseleave="selectEnd"
+          @mousemove="dragPicker"
+        >
+          <p class="title">Big Color Picker</p>
+          <div class="inner">
+            <div class="colorpicker-wrap">
+              <div
+                id="color-area"
+                class="colorpicker"
+                @mousedown="colorSelect"
+                :style="pickerStyle"
+              >
+                <div
+                  :style="{left:colorCursor.left + 'px',top:colorCursor.top + 'px'}"
+                  class="colorpicker-cursor"
+                  :class="colorCursorState"
+                ></div>
+              </div>
+            </div>
+            <div id="huepicker" class="huepicker" @mousedown="hueSelectStart">
+              <div
+                @mousedown="hueCursorClick"
+                class="huepicker-cursor"
+                :style="{top:hueCursorPos + 'px'}"
+              ></div>
+            </div>
+            <div class="preview_area">
+              <div class="preview-wrap">
+                <div
+                  class="preview"
+                  :style="{backgroundColor:'#' + rgb2hex,opacity:alpha}"
+                ></div>
+              </div>
+              <div class="colorcode-wrap">
+                <div class="colorcode-boxes-wrap">
+                  <div class="colorcode-boxes">
+                    <div class="colorcode-box">
+                      <span>R</span
+                      ><input
+                        type="text"
+                        :value="rgb.r"
+                        @keydown="colorNumInput('r', arguments[0])"
+                        @blur="colorNumInput('r', arguments[0])"
+                      />
+                    </div>
+                    <div class="colorcode-box">
+                      <span>G</span
+                      ><input
+                        type="text"
+                        :value="rgb.g"
+                        @keydown="colorNumInput('g', arguments[0])"
+                        @blur="colorNumInput('g', arguments[0])"
+                      />
+                    </div>
+                    <div class="colorcode-box">
+                      <span>B</span
+                      ><input
+                        type="text"
+                        :value="rgb.b"
+                        @keydown="colorNumInput('b', arguments[0])"
+                        @blur="colorNumInput('b', arguments[0])"
+                      />
+                    </div>
+                    <div class="colorcode-box">
+                      <span>A</span
+                      ><input
+                        type="text"
+                        :value="alphaInt"
+                        @keydown="colorNumInput('a', arguments[0])"
+                        @blur="colorNumInput('a', arguments[0])"
+                      />
+                    </div>
+                  </div>
+                  <div class="colorcode-boxes">
+                    <div class="colorcode-box">
+                      <span>H</span
+                      ><input
+                        type="text"
+                        :value="hsv.h"
+                        @keydown="colorNumInput('h', arguments[0])"
+                        @blur="colorNumInput('h', arguments[0])"
+                      />
+                    </div>
+                    <div class="colorcode-box">
+                      <span>S</span
+                      ><input
+                        type="text"
+                        :value="hsv.s"
+                        @keydown="colorNumInput('s', arguments[0])"
+                        @blur="colorNumInput('s', arguments[0])"
+                      />
+                    </div>
+                    <div class="colorcode-box">
+                      <span>V</span
+                      ><input
+                        type="text"
+                        :value="hsv.v"
+                        @keydown="colorNumInput('v', arguments[0])"
+                        @blur="colorNumInput('v', arguments[0])"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  class="colorcode-rgba"
+                  :value="rgbaCode"
+                  @blur="rgbaCodeInput"
+                  @keyup.13="rgbaCodeInput"
+                  @focus="focusAndSelect"
+                />
+                <input
+                  type="text"
+                  class="colorcode-hex"
+                  :value="'#' + rgb2hex"
+                  @blur="hexInput"
+                  @keyup.13="hexInput"
+                  @focus="focusAndSelect"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+  </body>
+</html>
